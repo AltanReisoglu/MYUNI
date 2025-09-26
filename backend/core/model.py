@@ -62,12 +62,59 @@ MONGO_URI = os.getenv("MONGO_URI")
 DB_NAME = os.getenv("DB_NAME", "rag")
 SERPER_API_KEY = os.getenv("SERPER_API_KEY")
 
-with open(r"backend\datas.toml", "rb") as f:
+"""with open(r"backend\datas.toml", "rb") as f:
     universities = tomli.load(f)
 
 ytü_variants = universities["universiteler"]["ytu_variants"]
 boun_variants = universities["universiteler"]["boun_variants"]
 cerrahpasa_variants = universities["universiteler"]["cerrahpasa_variants"]
+"""
+ytu_variants = [
+    "yıldız teknik üniversitesi",
+    "yıldız teknik",
+    "ytü",
+    "yıldız teknik üniversitesi (ytü)",
+    "yıldız teknik üniversitesi - ytü",
+    "yildiz teknik universitesi",
+    "yildiz teknik",
+    "ytu",
+    "yildiz teknik universitesi (ytu)",
+    "yildiz teknik universitesi - ytu",
+    "yildiz teknik universite",
+    "yildiz teknik universitesı",
+    "yildız teknik üniversıtesi",
+    "yildız teknik ünıversitesi"
+]
+
+boun_variants = [
+    "boğaziçi üniversitesi",
+    "bogazici universitesi",
+    "boğaziçi",
+    "bogazici",
+    "boun",
+    "boğaziçi üniversitesi (boun)",
+    "bogazici universitesi (boun)",
+    "bogazici universtesi",
+    "boğazıcı universitesi",
+    "boğaziçi ünıversitesi",
+    "bounn"
+]
+
+cerrahpasa_variants = [
+    "istanbul üniversitesi-cerrahpaşa",
+    "istanbul universitesi-cerrahpasa",
+    "cerrahpaşa",
+    "cerrahpasa",
+    "iuc",
+    "iüc",
+    "iuc-cerrahpaşa",
+    "iuc-cerrahpasa",
+    "istanbul üniversitesi cerrahpaşa",
+    "istanbul universitesi cerrahpasa",
+    "cerrah pasa",
+    "cerahpaşa",
+    "cerahpasa"
+]
 
 # -------------------------------
 # Embeddings & Vectorstore
@@ -247,4 +294,5 @@ def get_response_model(query, history=None):
     as1 = result['messages'][-1]
     if hasattr(as1, "content"):
         return as1.content
+
     return as1
