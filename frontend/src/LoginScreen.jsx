@@ -34,7 +34,7 @@ const LoginScreen = ({ onLogin }) => {
 
     setLoading(true);
     try {
-      const response =await axios.post("${API_BASE_URL}/assistant/preset", {
+      const response =await axios.post(`${API_BASE_URL}/assistant/preset`, {
         email:email,
         school:schoolName,
       });
@@ -120,6 +120,7 @@ const LoginScreen = ({ onLogin }) => {
 };
 
 export default LoginScreen;
+
 
 
 
