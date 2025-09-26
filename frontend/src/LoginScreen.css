@@ -1,0 +1,329 @@
+/* ===========================
+   GLOBAL RESET & FULLSCREEN
+=========================== */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Ekran kendi içinde scroll yapsın, dışarı taşmasın */
+  font-family: sans-serif;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+/* --- 1) CHAT KUTUSUNU YANA İT ve biraz büyüt --- */
+
+
+.main-container {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg,#1e1b4b 0%,#581c87 50%,#be185d 100%);
+  position: relative;
+  overflow: hidden;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;     /* dikey ortala */
+  justify-content: center; /* yatay ortala */
+}
+
+/* LOGIN KARTI ORTADA ve GENİŞ */
+.login-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(1rem);
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+  padding: 2.5rem;
+  width: 80vw;             /* biraz daha geniş */
+  max-width: 60rem;        /* çok geniş ekranda sınırlı */
+  min-width: 40rem;        /* telefon gibi dar olmasın */
+  margin: auto;            /* ortalama */
+  border: 1px solid rgba(255,255,255,0.2);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+/* ===========================
+   CHAT SCREEN STYLES
+=========================== */
+
+
+/* Header */
+.chat-header {
+  padding: 1rem;
+  background: #2c2c2c;
+  border-bottom: 1px solid #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Messages */
+.chat-messages {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+/* Input area */
+.chat-input {
+  padding: 1rem;
+  background: #2c2c2c;
+  border-top: 1px solid #333;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  outline: none;
+}
+
+.chat-input button {
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.chat-input button:hover {
+  background: #1d4ed8;
+}
+
+/* ===========================
+   LOGIN SCREEN STYLES
+=========================== */
+
+/* Animations */
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-0.3125rem); }
+  75% { transform: translateX(0.3125rem); }
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(0.625rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Utility */
+.shake { animation: shake 0.3s ease-in-out; }
+.animate-fade-in { animation: fade-in 0.3s ease-out forwards; }
+.animate-pulse { animation: pulse 2s cubic-bezier(0.4,0,0.6,1) infinite; }
+.animate-spin { animation: spin 1s linear infinite; }
+
+/* Main container */
+.main-container {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg,#1e1b4b 0%,#581c87 50%,#be185d 100%);
+  position: relative;
+  overflow: hidden;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Background elements */
+.bg-element-1, .bg-element-2, .bg-element-3 {
+  position: absolute;
+  width: 18rem;
+  height: 18rem;
+  border-radius: 50%;
+  mix-blend-mode: multiply;
+  filter: blur(3rem);
+  opacity: 0.7;
+  animation: pulse 3s ease-in-out infinite;
+}
+.bg-element-1 { top: -2.5rem; left: -2.5rem; background: linear-gradient(45deg,#60a5fa,#a855f7); }
+.bg-element-2 { top: 33.333%; right: -2.5rem; background: linear-gradient(45deg,#a855f7,#ec4899); animation-delay: 2s; }
+.bg-element-3 { bottom: -8rem; left: 5rem; background: linear-gradient(45deg,#ec4899,#ef4444); animation-delay: 4s; }
+
+/* Login container */
+.login-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  position: relative;
+  z-index: 10;
+  flex-direction: column;
+}
+
+/* Login card */
+.login-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(1rem);
+  border-radius: 1.5rem;
+  box-shadow: 0 1.5625rem 3.125rem -0.75rem rgba(0,0,0,0.25);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 36rem;
+  border: 0.0625rem solid rgba(255,255,255,0.2);
+  transform: scale(1);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+.login-card:hover { transform: scale(1.05); }
+
+/* Logo */
+.login-logo {
+  width: 6rem;
+  height: 6rem;
+  background: linear-gradient(45deg,#3b82f6,#8b5cf6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2rem;
+  box-shadow: 0 0.625rem 1.5625rem -0.3125rem rgba(0,0,0,0.1);
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+}
+.login-logo:hover { transform: rotate(12deg); }
+.login-logo svg { width: 3rem; height: 3rem; }
+
+/* Titles */
+.login-title {
+  font-size: 2.25rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(45deg,#60a5fa,#a855f7);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.login-subtitle {
+  font-size: 1.125rem;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 2rem;
+}
+
+/* Terms */
+.login-terms {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.6);
+}
+
+/* Form */
+.login-form { display: flex; flex-direction: column; gap: 1.5rem; }
+.form-group { transform: scale(1); transition: all 0.3s ease; }
+.form-group:hover { transform: scale(1.05); }
+.form-label { font-size: 0.875rem; font-weight: 500; color: rgba(255,255,255,0.9); margin-bottom: 0.75rem; }
+
+.input-group { position: relative; }
+.input-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255,255,255,0.6);
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: color 0.3s ease;
+  z-index: 2;
+}
+.form-input {
+  width: 100%;
+  padding: 1rem 1rem 1rem 3rem;
+  background: rgba(255,255,255,0.1);
+  border: 0.0625rem solid rgba(255,255,255,0.3);
+  border-radius: 0.75rem;
+  outline: none;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 1rem;
+}
+.form-input::placeholder { color: rgba(255,255,255,0.5); }
+.form-input:focus { border-color: #60a5fa; box-shadow: 0 0 0 0.1875rem rgba(96,165,250,0.3); }
+.form-input:focus ~ .input-icon { color: #60a5fa; }
+.form-input.error { border-color: #f87171; animation: shake 0.3s ease-in-out; }
+.error-message { color: #fca5a5; font-size: 0.875rem; margin-top: 0.5rem; animation: fade-in 0.3s ease-out forwards; }
+
+/* Button */
+.login-button {
+  width: 100%;
+  background: linear-gradient(45deg,#2563eb,#8b5cf6);
+  color: white;
+  font-weight: 600;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: none;
+  transition: all 0.3s ease;
+  transform: scale(1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.login-button:hover:not(:disabled) {
+  background: linear-gradient(45deg,#1d4ed8,#7c3aed);
+  transform: scale(1.05);
+}
+.login-button:disabled {
+  background: linear-gradient(45deg,#6b7280,#6b7280);
+  cursor: not-allowed;
+}
+.login-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);
+  transition: left 1s;
+}
+.login-button:hover:not(:disabled)::before { left: 100%; }
+
+/* Spinner */
+.loading-spinner {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 0.125rem solid rgba(255,255,255,0.3);
+  border-top: 0.125rem solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-card { max-width: 90%; padding: 2rem; }
+  .login-title { font-size: 2rem; }
+  .login-subtitle { font-size: 1rem; }
+  .login-logo { width: 5rem; height: 5rem; }
+  .login-logo svg { width: 2.5rem; height: 2.5rem; }
+}
+@media (max-width: 480px) {
+  .login-card { max-width: 95%; padding: 1.5rem; }
+  .login-title { font-size: 1.75rem; }
+  .login-subtitle { font-size: 0.875rem; }
+  .login-logo { width: 4.5rem; height: 4.5rem; }
+  .login-logo svg { width: 2rem; height: 2rem; }
+}
