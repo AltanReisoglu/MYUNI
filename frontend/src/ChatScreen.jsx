@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Bot, Menu, Send } from "lucide-react";
 import "./ChatScreen.css";
-import api from "./api"; // axios instance
+// axios instance
 import axios from 'axios';
 import {API_BASE_URL} from "./util.js";
 
@@ -145,6 +145,7 @@ const ChatScreen = ({ userInfo, onLogout }) => {
 };
 
 export default ChatScreen;
+
 
 
 
