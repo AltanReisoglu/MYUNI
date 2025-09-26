@@ -1,25 +1,33 @@
-import React, { useState } from "react";
+// ChatScreen.jsx
+import React, { useState, useEffect } from "react";
 import { Bot, Menu, Send } from "lucide-react";
 import "./ChatScreen.css";
-// axios instance
-import axios from 'axios';
-import {API_BASE_URL} from "./util.js";
+import api from "./api"; // axios instance
+import { logout, getToken } from "./auth";
 
 const ChatScreen = ({ userInfo, onLogout }) => {
   const [messages, setMessages] = useState([
     {
       id: 1,
       sender: "bot",
-      text: `Merhaba! Ben ${userInfo.schoolName} öğrencilerine yardımcı olan AI asistanınızım. Size nasıl yardımcı olabilirim?`,
+      text: `Merhaba! Ben ${userInfo?.schoolName || "okulunuz"} AI asistanıyım. Size nasıl yardımcı olabilirim?`,
       timestamp: new Date(),
     },
   ]);
-
   const [inputMessage, setInputMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
 
+  useEffect(() => {
+    // Eğer token yoksa otomatik olarak çıkışa gönder veya uyar
+    const token = getToken();
+    if (!token) {
+      alert("Oturum açmanız gerekiyor. Lütfen giriş yapın.");
+      onLogout();
+    }
+  }, [onLogout]);
+
   const handleSendMessage = async (e) => {
-    e.preventDefault();
+    e?.preventDefault();
     if (!inputMessage.trim()) return;
 
     const newMessage = {
@@ -33,20 +41,37 @@ const ChatScreen = ({ userInfo, onLogout }) => {
     setIsTyping(true);
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/asisstant/request`, { question: inputMessage });
+      // --- BURADA endpoint seçimi ---
+      // Çoğu durumda Choreo'da kullandığın endpoint: /assistant/preset
+      // Eğer backend'in /assistant/request ise aşağıdaki satırı ona göre değiştir.
+      const response = await api.post("/assistant/preset", { question: inputMessage });
+      // const response = await api.post("/assistant/request", { question: inputMessage }); // alternatif
+
+      const botText = response?.data?.answer ?? response?.data?.message ?? "Cevap alınamadı.";
       const botResponse = {
         id: messages.length + 2,
         sender: "bot",
-        text: response.data.answer,
+        text: botText,
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, botResponse]);
     } catch (error) {
       console.error("API error:", error);
+
+      // 401 veya invalid credentials gelirse
+      if (error?.response?.status === 401) {
+        // opsiyonel: token expired ise logout
+        logout();
+        alert("Oturum süresi doldu veya yetkisiz. Lütfen tekrar giriş yapın.");
+        onLogout();
+        return;
+      }
+
+      const errMsg = error?.response?.data?.error_message || error?.message || "Bir hata oluştu.";
       const errorMessage = {
         id: messages.length + 2,
         sender: "bot",
-        text: "Bir hata oluştu, lütfen tekrar deneyin.",
+        text: `Hata: ${errMsg}`,
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -65,15 +90,19 @@ const ChatScreen = ({ userInfo, onLogout }) => {
           </div>
           <div className="header-info">
             <h2>AI Öğrenci Asistanı</h2>
-            <p>{userInfo.schoolName}</p>
+            <p>{userInfo?.schoolName}</p>
           </div>
         </div>
 
         <div className="user-menu">
-          <button onClick={onLogout} className="user-menu-button" title="Çıkış Yap">
+          <button
+            onClick={() => { logout(); onLogout(); }}
+            className="user-menu-button"
+            title="Çıkış Yap"
+          >
             <Menu />
             <div className="user-info">
-              <p>{userInfo.email}</p>
+              <p>{userInfo?.email}</p>
               <p>Aktif</p>
             </div>
           </button>
@@ -145,9 +174,3 @@ const ChatScreen = ({ userInfo, onLogout }) => {
 };
 
 export default ChatScreen;
-
-
-
-
-
-
