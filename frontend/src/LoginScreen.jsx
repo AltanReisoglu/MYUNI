@@ -32,7 +32,7 @@ const LoginScreen = ({ onLogin }) => {
 
     setLoading(true);
     try {
-      const response =await api.post("/assistant/preset", {
+      const response =await api.post("/choreo-apis/myuni-tn/backend/v1/assistant/preset", {
         email:email,
         school:schoolName,
       });
@@ -118,3 +118,4 @@ const LoginScreen = ({ onLogin }) => {
 };
 
 export default LoginScreen;
+
