@@ -12,7 +12,7 @@ endpoints:
     networkVisibilities: 
       - Public
       - Organization
-    schemaFilePath: openapi.yaml
+    
 
 # +optional Defines runtime configurations
 configurations:
