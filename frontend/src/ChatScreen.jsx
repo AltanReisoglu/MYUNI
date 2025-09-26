@@ -33,7 +33,7 @@ const ChatScreen = ({ userInfo, onLogout }) => {
     setIsTyping(true);
 
     try {
-      const response = await axios.post("${API_BASE_URL}/assistant/request", { question: inputMessage });
+      const response = await axios.post(`${API_BASE_URL}/asisstant/request`, { question: inputMessage });
       const botResponse = {
         id: messages.length + 2,
         sender: "bot",
@@ -145,6 +145,7 @@ const ChatScreen = ({ userInfo, onLogout }) => {
 };
 
 export default ChatScreen;
+
 
 
 
