@@ -12,8 +12,8 @@ load_dotenv()
 
 ##enpoint olarak ytü,boun,itü olabilir
 ######
-docs_path = r"C:\Users\bahaa\OneDrive\Masaüstü\gemini_app_2\backend\rag_docs\ytü"
-files = glob.glob(os.path.join(docs_path, "*"))
+"""docs_path = r"C:\Users\bahaa\OneDrive\Masaüstü\gemini_app_2\backend\rag_docs\ytü"
+files = glob.glob(os.path.join(docs_path, "*"))"""
 
 # Tüm dokümanları yükle
 all_docs = []
@@ -66,5 +66,6 @@ vectorstore = MongoDBAtlasVectorSearch.from_documents(
     collection=collection,
     index_name="default"
 )
+
 
 print("✅ MongoDB VectorStore güncellendi, tüm dosyalar eklendi.")
