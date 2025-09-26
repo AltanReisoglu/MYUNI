@@ -1,0 +1,60 @@
+# +required The configuration file schema version
+schemaVersion: 1.2
+
+# +optional Incoming connection details for the component
+endpoints:
+  - name: greeter-sample
+    displayName: Go Greeter Sample
+    service:
+      basePath: /greeting-service
+      port: 9090
+    type: REST
+    networkVisibilities: 
+      - Public
+      - Organization
+    schemaFilePath: openapi.yaml
+
+# +optional Defines runtime configurations
+configurations:
+  env:
+    - name: GOOGLE_API_KEY
+      valueFrom:
+        configForm:
+          displayName: Google API Key
+          required: true
+          type: secret
+
+    - name: MONGO_URI
+      valueFrom:
+        configForm:
+          displayName: MongoDB URI
+          required: true
+          type: secret
+
+    - name: MONGO_USERNAME
+      valueFrom:
+        configForm:
+          displayName: MongoDB Username
+          required: true
+          type: string
+
+    - name: MONGO_PSW
+      valueFrom:
+        configForm:
+          displayName: MongoDB Password
+          required: true
+          type: secret
+
+    - name: MONGO_DB
+      valueFrom:
+        configForm:
+          displayName: MongoDB Database
+          required: true
+          type: string
+
+    - name: MONGO_IP
+      valueFrom:
+        configForm:
+          displayName: MongoDB IP Address
+          required: false
+          type: string
