@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Bot, Menu, Send } from "lucide-react";
 import "./ChatScreen.css";
 import api from "./api"; // axios instance
-// axios instance
-import axios from 'axios';
+
 import {API_BASE_URL} from "./util.js";
 
 const ChatScreen = ({ userInfo, onLogout }) => {
@@ -34,7 +33,7 @@ const ChatScreen = ({ userInfo, onLogout }) => {
     setIsTyping(true);
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/asisstant/request`, { question: inputMessage });
+      const response = await api.post("/asisstant/request", { question: inputMessage });
       const botResponse = {
         id: messages.length + 2,
         sender: "bot",
@@ -146,3 +145,4 @@ const ChatScreen = ({ userInfo, onLogout }) => {
 };
 
 export default ChatScreen;
+
