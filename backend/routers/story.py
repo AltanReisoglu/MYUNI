@@ -60,6 +60,7 @@ class QueryResponse(BaseModel):
 
 
 @router.post("/request",response_model=QueryResponse)
-def ask_question(request: QueryRequest):
+async def ask_question(request: QueryRequest):
     answer = get_response_model(request.question)
+
     return QueryResponse(answer=answer)
