@@ -47,7 +47,7 @@ class PresetResponse(BaseModel):
 # Endpoint to submit preset info
 # -------------------------------
 @router.post("/preset", response_model=PresetResponse)
-def query_preset(request: PresetRequest) -> PresetResponse:
+async def query_preset(request: PresetRequest) -> PresetResponse:
     LittleDB["school"] = request.school
     LittleDB["email"] = request.email
     return PresetResponse(
@@ -296,3 +296,4 @@ def get_response_model(query, history=None):
         return as1.content
 
     return as1
+
