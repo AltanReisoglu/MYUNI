@@ -6,8 +6,8 @@ endpoints:
   - name: greeter-sample
     displayName: Go Greeter Sample
     service:
-      basePath: /greeting-service
-      port: 9090
+      basePath: /
+      port: 8000
     type: REST
     networkVisibilities: 
       - Public
