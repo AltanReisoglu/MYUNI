@@ -32,7 +32,7 @@ const ChatScreen = ({ userInfo, onLogout }) => {
     setIsTyping(true);
 
     try {
-      const response = await api.post("/asisstant/request", { question: inputMessage });
+      const response = await api.post("/assistant/request", { question: inputMessage });
       const botResponse = {
         id: messages.length + 2,
         sender: "bot",
@@ -144,5 +144,6 @@ const ChatScreen = ({ userInfo, onLogout }) => {
 };
 
 export default ChatScreen;
+
 
 
