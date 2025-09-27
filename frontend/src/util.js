@@ -1,7 +1,4 @@
-window.configs = {
-    apiUrl: '/choreo-apis/myuni-tn/backend/v1/api',
-};
 
-const apiUrl = window?.configs?.apiUrl ? window.configs.apiUrl : "/";
+const apiUrl = '/choreo-apis/myuni-tn/backend/v1/api',
 
-export const API_BASE_URL = apiUrl
+export const API_BASE_URL
