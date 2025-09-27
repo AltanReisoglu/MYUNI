@@ -1,5 +1,5 @@
 window.configs = {
-    apiUrl: '/choreo-apis/myuni-tn/backend/v1'
+    apiUrl: '/choreo-apis/myuni-tn/backend-ug/v1'
 };
 const apiUrl = window?.configs?.apiUrl ? window.configs.apiUrl : "/";
 
