@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Mail, GraduationCap } from "lucide-react";
 import "./LoginScreen.css";
 import api from "./api";
-import axios from 'axios';
 import {API_BASE_URL} from "./util.js";
 
 const LoginScreen = ({ onLogin }) => {
@@ -34,7 +33,7 @@ const LoginScreen = ({ onLogin }) => {
 
     setLoading(true);
     try {
-      const response =await axios.post(`${API_BASE_URL}/assistant/preset`, {
+      const response =await api.post("assistant/preset", {
         email:email,
         school:schoolName,
       });
@@ -120,6 +119,7 @@ const LoginScreen = ({ onLogin }) => {
 };
 
 export default LoginScreen;
+
 
 
 
