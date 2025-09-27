@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Mail, GraduationCap } from "lucide-react";
 import "./LoginScreen.css";
 import api from "./api";
-import {API_BASE_URL} from "./util.js";
+
 
 const LoginScreen = ({ onLogin }) => {
   const [email, setEmail] = useState("");
@@ -119,6 +119,7 @@ const LoginScreen = ({ onLogin }) => {
 };
 
 export default LoginScreen;
+
 
 
 
