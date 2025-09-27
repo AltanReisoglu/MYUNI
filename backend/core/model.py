@@ -29,8 +29,8 @@ LittleDB = {
 }
 
 router = APIRouter(
-    prefix="/assistant",
-    tags=["assistant"]
+    prefix="/login",
+    tags=["login"]
 )
 
 # -------------------------------
@@ -296,4 +296,5 @@ def get_response_model(query, history=None):
         return as1.content
 
     return as1
+
 
