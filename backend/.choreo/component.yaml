@@ -3,15 +3,15 @@ schemaVersion: 1.2
 
 # +optional Incoming connection details for the component
 endpoints:
-  - name: greeter-sample
-    displayName: Go Greeter Sample
+  - name: rest-api-be2
+    displayName: REST API
     service:
       basePath: /
       port: 8000
     type: REST
     networkVisibilities: 
       - Public
-      - Organization
+      - Project
     
 
 # +optional Defines runtime configurations
